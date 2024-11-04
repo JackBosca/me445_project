@@ -1,4 +1,4 @@
-function [zeta_circle, profile] = joukowski_transform(eta_origin, xi_origin, a, acc)
+function [zeta_circle, xj, yj] = joukowski_transform(eta_origin, xi_origin, a, acc)
 % joukowski_transform - Function to perform the Joukowski transform of a
 % complex circle given its origin and the a parameter.
 % 
@@ -10,7 +10,8 @@ function [zeta_circle, profile] = joukowski_transform(eta_origin, xi_origin, a, 
 %
 % OUTPUTS:
 % - zeta_circle, complex float: coordinates of the complex circle
-% - profile, complex float: coordinates of the Joukowski profile
+% - xj, float: x coordinates of the Joukowski profile
+% - yj, float: y coordinates of the Joukowski profile
 %
 % CALLED FUNCTIONS: -
 %
@@ -37,5 +38,12 @@ function [zeta_circle, profile] = joukowski_transform(eta_origin, xi_origin, a, 
     
     % Joukowski transform
     profile = zeta_circle + a^2 ./ zeta_circle; 
+
+    % traslating profile to have LE at (0, 0)
+    profile = profile - min(real(profile));
+
+    % dividing by profile chord
+    xj = real(profile)/(max(real(profile)) - min(real(profile)));
+    yj = imag(profile)/(max(real(profile)) - min(real(profile)));
 
 end
