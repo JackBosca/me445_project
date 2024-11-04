@@ -14,6 +14,8 @@ Changes: -
 % paths
 data_path = "data/";
 addpath(genpath(data_path))
+src_path = "src/";
+addpath(genpath(src_path))
 
 % load NACA 23012 data
 load("x.mat")                           % x/c
