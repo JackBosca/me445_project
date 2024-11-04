@@ -38,27 +38,19 @@ xi_origin = 0.1;
 a = 1.2;
 
 % Joukowski function call
-[zeta_circle, profile] = joukowski_transform(eta_origin, xi_origin, a);
+[zeta_circle, xj, yj] = joukowski_transform(eta_origin, xi_origin, a);
 
-% plots
-figure 
+% interpolating yj onto x
+idx_j = find(xj == 0, 1);
+idx_x = find(x == 0, 1);
 
-subplot(1, 2, 1)
-plot(complex(0), 'k*')                          % (0, 0)
+yj_interp1 = interp1(xj(1:idx_j), yj(1:idx_j), x(1:idx_x), ...
+    'linear', 'extrap');
+yj_interp2 = interp1(xj((idx_j + 1):end), yj((idx_j + 1):end), ...
+    x((idx_x + 1):end), 'linear', 'extrap');
+
+yj_interp = [yj_interp1, yj_interp2];
+
+% add Joukowski plot to the NACA23012 one
 hold on
-plot(complex(eta_origin + 1i*xi_origin), 'bo')  % center of the circle 
-plot(zeta_circle, 'm')
-axis equal tight
-axis([-1.5, 1.5, -1.5, 1.5]) 
-grid on
-xlabel('\eta')
-ylabel('\xi')
-
-subplot(1,2,2)
-plot(profile, 'm')
-hold on
-axis equal tight
-axis([-3, 3, -3, 3]) 
-grid on
-xlabel('x')
-ylabel('y') 
+plot(x, yj_interp, 'Marker', 'p')
