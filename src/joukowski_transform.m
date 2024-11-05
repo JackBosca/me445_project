@@ -1,11 +1,11 @@
-function [zeta_circle, xj, yj] = joukowski_transform(eta_origin, xi_origin, a, acc)
+function [zeta_circle, xj, yj] = joukowski_transform(params, acc)
 % joukowski_transform - Function to perform the Joukowski transform of a
 % complex circle given its origin and the a parameter.
 % 
 % INPUTS: 
-% - eta_origin, float: eta coordinate of the circle origin
-% - xi_origin, float: xi coordinate of the circle origin
-% - a, float: a parameter of the complex circle
+% - params(1), float: eta coordinate of the circle origin
+% - params(2), float: xi coordinate of the circle origin
+% - params(3), float: a parameter of the complex circle
 % - acc, int: accuracy for the circle discretization
 %
 % OUTPUTS:
@@ -23,6 +23,11 @@ function [zeta_circle, xj, yj] = joukowski_transform(eta_origin, xi_origin, a, a
     if nargin < 4
         acc = 101;
     end
+
+    % extracting params
+    eta_origin = params(1);
+    xi_origin = params(2);
+    a = params(3);
 
     % defining circle center
     zeta_origin = eta_origin + 1i*xi_origin;

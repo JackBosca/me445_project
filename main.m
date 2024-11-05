@@ -25,32 +25,23 @@ plot(x, y, '-o', 'LineWidth', 1.5, 'MarkerSize', 3, 'MarkerFaceColor', 'b')
 axis equal
 xlabel('x/c')
 ylabel('y/c')
-title('NACA 23012 Airfoil Profile')
 grid on
 
-%% Searching a Joukowski Transformation
+%% Searching a nice Joukowski Transformation
 
-% defining circle center
-eta_origin = -0.1; 
-xi_origin = 0.1; 
+% initial guess for parameters eta_origin, xi_origin, a
+init_guess = [-0.1, 0.1, 1];
 
-% defining a parameter
-a = 1.2;
+% minimize the objective function
+opt_params = fminsearch(@(params) objective_fct(params, x, y), ...
+    init_guess);
 
-% Joukowski function call
-[zeta_circle, xj, yj] = joukowski_transform(eta_origin, xi_origin, a);
+% Joukowski function call with optimal params
+[~, xj, yj] = joukowski_transform(opt_params);
 
-% interpolating yj onto x
-idx_j = find(xj == 0, 1);
-idx_x = find(x == 0, 1);
-
-yj_interp1 = interp1(xj(1:idx_j), yj(1:idx_j), x(1:idx_x), ...
-    'linear', 'extrap');
-yj_interp2 = interp1(xj((idx_j + 1):end), yj((idx_j + 1):end), ...
-    x((idx_x + 1):end), 'linear', 'extrap');
-
-yj_interp = [yj_interp1, yj_interp2];
+yj_interp = profile_interpolator(xj, yj, x);
 
 % add Joukowski plot to the NACA23012 one
 hold on
 plot(x, yj_interp, 'Marker', 'p')
+legend('NACA 23012', 'Joukowski Airfoil')
