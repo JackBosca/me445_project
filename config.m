@@ -5,7 +5,7 @@ CALLED FUNCTIONS: -
 
 CALLED DATA FILES: data/
 
-REVISIONS :
+REVISIONS:
 - #v0, 04-11-2024, Release, Boscariol Jacopo
 
 Changes: -
@@ -20,6 +20,8 @@ addpath(genpath(src_path))
 % load NACA 23012 data
 load("x.mat")                           % x/c
 load("y.mat")                           % y/c
+
+load("fig8_clW.mat")
 
 % geometric and aerodynamic data
 c = 0.05;                               % (m)

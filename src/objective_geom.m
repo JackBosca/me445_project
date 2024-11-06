@@ -1,6 +1,6 @@
-function err = objective_fct(params, x, y)
-% objective_fct - Objective function for the Joukowski profile minimization
-% problem.
+function err = objective_geom(params, x, y)
+% objective_geom - Objective function for the Joukowski profile geometric 
+% error minimization problem.
 % 
 % INPUTS: 
 % - params(1), float: eta coordinate of the circle origin
@@ -25,6 +25,7 @@ function err = objective_fct(params, x, y)
     yj_interp = profile_interpolator(xj, yj, x);
 
     % error computation
-    err = sum((y - yj_interp).^2);
+    % err = sum((y - yj_interp).^2);
+    err = mean(abs(y - yj_interp));
 
 end

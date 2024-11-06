@@ -6,7 +6,7 @@ CALLED FUNCTIONS: -
 
 CALLED DATA FILES: -
 
-REVISIONS :
+REVISIONS:
 - #v0, 04-11-2024, Release, Boscariol Jacopo
 
 Changes: -
@@ -27,17 +27,17 @@ xlabel('x/c')
 ylabel('y/c')
 grid on
 
-%% Searching a nice Joukowski Transformation
+%% Searching an optimal geometrical Joukowski transformation
 
 % initial guess for parameters eta_origin, xi_origin, a
 init_guess = [-0.1, 0.1, 1];
 
 % minimize the objective function
-opt_params = fminsearch(@(params) objective_fct(params, x, y), ...
+opt_params_geom = fminsearch(@(params) objective_geom(params, x, y), ...
     init_guess);
 
 % Joukowski function call with optimal params
-[~, xj, yj] = joukowski_transform(opt_params);
+[~, xj, yj] = joukowski_transform(opt_params_geom);
 
 yj_interp = profile_interpolator(xj, yj, x);
 
@@ -45,3 +45,43 @@ yj_interp = profile_interpolator(xj, yj, x);
 hold on
 plot(x, yj_interp, 'Marker', 'p')
 legend('NACA 23012', 'Joukowski Airfoil')
+
+%% Searching an optimal cl Joukowski transformation
+
+% search linear interval in cl(alpha) curve
+idx1 = find(fig8_clW(:, 1) > 0, 1);
+idx2 = find(fig8_clW(:, 1) > 7, 1);
+alpha = deg2rad(fig8_clW(idx1:idx2, 1));
+cl = fig8_clW(idx1:idx2, 2);
+
+% minimize the objective function
+opt_params_cl = fminsearch(@(params) objective_cl(params, alpha, cl), ...
+    init_guess);
+
+% Joukowski function call with optimal params
+[~, xj, yj] = joukowski_transform(opt_params_cl);
+
+yj_interp = profile_interpolator(xj, yj, x);
+
+% add Joukowski plot to the NACA23012 one
+plot(x, yj_interp, 'Marker', 'p')
+legend('NACA 23012', 'Best geometry Joukowski Airfoil', ...
+    'Best cl Joukowski Airfoil')
+
+%% wing cl
+
+figure
+plot(fig8_clW(:, 1), fig8_clW(:, 2), 'Marker', 'p')
+grid on
+xlabel('\alpha (deg)')
+ylabel('cl_W')
+
+cl = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
+
+alpha = deg2rad(0:1:10);
+
+hold on
+plot(rad2deg(alpha), cl(alpha, opt_params_geom(2), opt_params_geom(3)), ...
+    'Marker', 'x')
+plot(rad2deg(alpha), cl(alpha, opt_params_cl(2), opt_params_cl(3)), ...
+    'Marker', 'x')
