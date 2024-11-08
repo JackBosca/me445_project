@@ -1,6 +1,6 @@
 close all; clear all; clc;
 
-data = load('NACA23012.txt');
+data = load('data/NACA23012.txt');
 x_data = data(:,1); 
 y_data = data(:,2);
 x_data_up = [];
@@ -37,18 +37,19 @@ end
 % -------------------- Thin airfoil theory
 dyc_dx = diff(y_camber) ./ diff(x_naca);
 theta = acos(1 - 2.* x_naca); 
+dtheta = linspace(0,2*pi,31);
 xi = 0.5 .* (1 - cos(theta));
-A0 = 1/pi .* trapz(dyc_dx,theta(:,2:end));
+A0 = 1/pi .* trapz(dyc_dx,dtheta(:,2:end));
 for n = 1:10
-    An = [An, 2/pi .* trapz(dyc_dx .* cos(n .* theta(:,2:end)), theta(2:end))]
+    An = [An, 2/pi .* trapz(dyc_dx .* cos(n .* theta(:,2:end)), dtheta(2:end))];
 end
 
-alpha_TAF = linspace(-5,10,30)
-Cl_TAF = (2*pi.*alpha_TAF + pi*(An(1)-2*A0))/100
+alpha_TAF = linspace(-5,10,30);
+Cl_TAF = (2*pi.*alpha_TAF + pi*(An(1)-2*A0))/100;
 
 % -------------------- Exp data
-alpha_exp = load('fig10_tail_alpha.txt')
-Cl_exp = load('fig10_tail_CL.txt')
+alpha_exp = load('data/fig10_tail_alpha.txt');
+Cl_exp = load('data/fig10_tail_CL.txt');
 for i=1:length(alpha_TAF)
     if alpha_exp(i) == -1.029185868000000
         alpha_exp(i)=[];
@@ -59,14 +60,14 @@ for i=1:length(alpha_TAF)
         Cl_slope2 = Cl_exp(i);
     end
     if alpha_exp(i) == -3.026113671000000
-        alpha_slope1 = alpha_exp(i)
-        Cl_slope1 = Cl_exp(i)
+        alpha_slope1 = alpha_exp(i);
+        Cl_slope1 = Cl_exp(i);
     end
 end
 
 slope_exp = (Cl_slope2-Cl_slope1)/(alpha_slope2-alpha_slope1);
 b = Cl_slope2 - slope_exp*alpha_slope2;
-f_slope_exp = slope_exp .* linspace(-5,10,30) + b
+f_slope_exp = slope_exp .* linspace(-5,10,30) + b;
 
 % -------------------- Error
 error = abs(Cl_TAF-f_slope_exp);
