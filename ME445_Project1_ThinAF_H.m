@@ -83,16 +83,16 @@ ylabel('$y$', 'Interpreter','latex');
 legend([p1,p2,p3],'NACA 23012','Camber line','$dy_c/dx$','Interpreter','latex');
 
 figure; hold on; grid on;
-p1 = plot(alpha_TAF,Cl_TAF,'b')
-p2 = plot(alpha_exp,Cl_exp,'ko-','MarkerSize',5)
-plot(-1.029185868000000,0.3186,'ko') 
-plot(linspace(-5,10,30),f_slope_exp)
+p1 = plot(alpha_TAF,Cl_TAF,'b');
+p2 = plot(alpha_exp,Cl_exp,'ko-','MarkerSize',5);
+plot(-1.029185868000000,0.3186,'ko');
+p3 = plot(linspace(-5,10,30),f_slope_exp,'Color',[1 0 0 0.4]);
 xlabel('$\alpha$','Interpreter','latex');
 ylabel('$(C_L - C_{L,S})/C_{L,S}$','Interpreter','latex');
-legend([p1,p2], 'Thin airfoil theory','Experimental','Interpreter','Latex')
+legend([p1,p2,p3], 'TA Theory','Experimental','Slope approx.','Interpreter','Latex');
 
 figure; hold on; grid on;
-plot(linspace(-5,10,30),error,'b')
+plot(linspace(-5,10,30),error,'k');
 xlabel('$\alpha$','Interpreter','Latex');
 ylabel('$\varepsilon$','Interpreter','Latex');
 legend('Absolute error','Interpreter','Latex');
