@@ -43,13 +43,13 @@ for n = 1:10
     An = [An, 2/pi .* trapz(dyc_dx .* cos(n .* theta(:,2:end)), theta(2:end))]
 end
 
-alpha = linspace(-5,10,30)
-Cl = (2*pi.*alpha + pi*(An(1)-2*A0))/100
+alpha_TAF = linspace(-5,10,30)
+Cl_TAF = (2*pi.*alpha_TAF + pi*(An(1)-2*A0))/100
 
 % -------------------- Exp data
 alpha_exp = load('fig10_tail_alpha.txt')
 Cl_exp = load('fig10_tail_CL.txt')
-for i=1:length(alpha)
+for i=1:length(alpha_TAF)
     if alpha_exp(i) == -1.029185868000000
         alpha_exp(i)=[];
         Cl_exp(i)=[];
@@ -66,13 +66,15 @@ end
 
 slope_exp = (Cl_slope2-Cl_slope1)/(alpha_slope2-alpha_slope1);
 b = Cl_slope2 - slope_exp*alpha_slope2;
-f_slope = slope_exp .* linspace(-5,10,30) + b
+f_slope_exp = slope_exp .* linspace(-5,10,30) + b
+
+% -------------------- Error
+error = abs(Cl_TAF-f_slope_exp);
 
 % -------------------- Figure Plot
 figure; hold on; grid on;
 p1 = plot(x_naca, y_naca_up,  'b.-', 'LineWidth', 1) ;
 plot(x_naca,y_naca_down, 'b.-', 'LineWidth', 1); 
-% plot(x_naca,y_naca_down, 'b.-', 'LineWidth', 1);
 p2 = plot(x_naca,y_camber, 'r.-');
 p3 = plot(x_naca(1,3:end), dyc_dx(1,2:end), '-');
 axis equal;
@@ -81,11 +83,16 @@ ylabel('$y$', 'Interpreter','latex');
 legend([p1,p2,p3],'NACA 23012','Camber line','$dy_c/dx$','Interpreter','latex');
 
 figure; hold on; grid on;
-p1 = plot(alpha,Cl,'b')
+p1 = plot(alpha_TAF,Cl_TAF,'b')
 p2 = plot(alpha_exp,Cl_exp,'ko-','MarkerSize',5)
-plot(-1.029185868000000,0.3186,'ko')
-plot([alpha_slope1 alpha_slope2],[Cl_slope1 Cl_slope2],'g')
-plot(linspace(-5,10,30),f_slope)
+plot(-1.029185868000000,0.3186,'ko') 
+plot(linspace(-5,10,30),f_slope_exp)
 xlabel('$\alpha$','Interpreter','latex');
 ylabel('$(C_L - C_{L,S})/C_{L,S}$','Interpreter','latex');
 legend([p1,p2], 'Thin airfoil theory','Experimental','Interpreter','Latex')
+
+figure; hold on; grid on;
+plot(linspace(-5,10,30),error,'b')
+xlabel('$\alpha$','Interpreter','Latex');
+ylabel('$\varepsilon$','Interpreter','Latex');
+legend('Absolute error','Interpreter','Latex');
