@@ -85,7 +85,7 @@ legend([p1,p2,p3],'NACA 23012','Camber line','$dy_c/dx$','Interpreter','latex');
 
 figure; hold on; grid on;
 p1 = plot(alpha_TAF,Cl_TAF,'b');
-p2 = plot(alpha_exp,Cl_exp,'ko-','MarkerSize',5);
+p2 = plot(alpha_exp,Cl_exp,'ko','MarkerSize',5);
 plot(-1.029185868000000,0.3186,'ko');
 p3 = plot(linspace(-5,10,30),f_slope_exp,'Color',[1 0 0 0.4]);
 xlabel('$\alpha$','Interpreter','latex');
