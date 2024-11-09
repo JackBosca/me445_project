@@ -22,6 +22,7 @@ load("x.mat")                           % x/c
 load("y.mat")                           % y/c
 
 load("fig8_clW.mat")
+load("fig8_clT.mat")
 
 % geometric and aerodynamic data
 c = 0.05;                               % (m)

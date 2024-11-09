@@ -79,14 +79,15 @@ legend('NACA 23012', lgd_text_geom, lgd_text_cl)
 
 figure
 plot(fig8_clW(:, 1), fig8_clW(:, 2), 'Marker', 'p')
+hold on
+plot(fig8_clT(:, 1), fig8_clT(:, 2), 'Marker', 'p')
 grid on
 xlabel('\alpha (deg)')
 
 cl = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
 
-alpha = deg2rad(0:1:10);
+alpha = deg2rad(0:1:7);
 
-hold on
 plot(rad2deg(alpha), cl(alpha, opt_params_geom(2), opt_params_geom(3)), ...
     'Marker', 'x')
 plot(rad2deg(alpha), cl(alpha, opt_params_cl(2), opt_params_cl(3)), ...
@@ -100,4 +101,6 @@ lgd_text_geom = sprintf('Joukowski Airfoil - Geometry Opt by %s', ...
     err_type_cl);
 lgd_text_cl = sprintf('Joukowski Airfoil - Cl Opt by %s', ...
     err_type_cl);
-legend('NACA 23012 cl_W', lgd_text_geom, lgd_text_cl)
+
+legend('NACA 23012 cl_W', 'NACA 23012 cl_T', lgd_text_geom, lgd_text_cl)
+title('Fig. 8')
