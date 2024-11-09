@@ -22,13 +22,13 @@ run("config.m")
 %% Optimal geometrical Joukowski transformation
 
 % initial guess for parameters eta_origin, xi_origin, a
-init_guess = [-0.1, 0.1, 1];
+init_guess = [0, 0.1, 1];
 
 % error definition (to be specified in objective_geom)
 % err_type_geom = 'sum_squared';
 
 % minimize the objective function
-opt_params_geom = fminsearch(@(params) objective_geom(params, x, y), ...
+opt_params_geom = fminsearch(@(params) obj_geom(params, x, y), ...
     init_guess);
 
 % Joukowski function call with optimal params
@@ -39,18 +39,20 @@ yj_interp_geom = profile_interpolator(xj, yj, x);
 %% Optimal cl Joukowski transformation
 
 % stall angles
-alphas_p = 7;                           % (deg)
-alphas_n = -8;                          % (deg)
+alphas_pW = 7;                           % (deg)
+alphas_nW = -8;                          % (deg)
+alphas_pT = 5;                           % (deg)
+alphas_nT = -8;                          % (deg)
 
 % search linear interval in clW(alpha) curve
-idx1 = find(fig8_clW(:, 1) > alphas_n, 1);
-idx2 = find(fig8_clW(:, 1) > alphas_p, 1);
+idx1 = find(fig8_clW(:, 1) > alphas_nW, 1);
+idx2 = find(fig8_clW(:, 1) > alphas_pW, 1);
 alphaW = deg2rad(fig8_clW(idx1:idx2, 1));
 clW = fig8_clW(idx1:idx2, 2);
 
 % search linear interval in clT(alpha) curve
-idx1 = find(fig8_clT(:, 1) > alphas_n, 1);
-idx2 = find(fig8_clT(:, 1) > alphas_p, 1);
+idx1 = find(fig8_clT(:, 1) > alphas_nT, 1);
+idx2 = find(fig8_clT(:, 1) > alphas_pT, 1);
 alphaT = deg2rad(fig8_clT(idx1:idx2, 1));
 clT = fig8_clT(idx1:idx2, 2);
 
@@ -58,9 +60,9 @@ clT = fig8_clT(idx1:idx2, 2);
 % err_type_cl = 'sum_squared';
 
 % minimize the objective function
-opt_params_clW = fminsearch(@(params) objective_cl(params, alphaW, clW), ...
+opt_params_clW = fminsearch(@(params) obj_cl(params, alphaW, clW), ...
     init_guess);
-opt_params_clT = fminsearch(@(params) objective_cl(params, alphaT, clT), ...
+opt_params_clT = fminsearch(@(params) obj_cl(params, alphaT, clT), ...
     init_guess);
 
 % Joukowski function call with optimal params
@@ -70,7 +72,8 @@ opt_params_clT = fminsearch(@(params) objective_cl(params, alphaT, clT), ...
 yj_interp_clW = profile_interpolator(xjW, yjW, x);
 yj_interp_clT = profile_interpolator(xjT, yjT, x);
 
-% cl potential flow function
+% cl potential flow function (apporx lambda/a --> 0 is valid for the
+% NACA 23012)
 cl = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
 
 %% plots call
