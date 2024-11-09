@@ -2,7 +2,7 @@
 main.m - Main script for the Aerodynamics ME-445 project. Selected paper: 
 https://doi.org/10.1007/s00348-017-2429-4.
 
-CALLED FUNCTIONS: -
+CALLED FUNCTIONS: src/
 
 CALLED DATA FILES: -
 
@@ -72,9 +72,6 @@ yj_interp_clT = profile_interpolator(xjT, yjT, x);
 
 % cl potential flow function
 cl = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
-
-% linear alphas interval
-alpha = deg2rad(alphas_n:1:alphas_p);
 
 %% plots call
 run("plots.m")
