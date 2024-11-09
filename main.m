@@ -44,7 +44,6 @@ yj_interp = profile_interpolator(xj, yj, x);
 % add Joukowski plot to the NACA23012 one
 hold on
 plot(x, yj_interp, 'Marker', 'p')
-legend('NACA 23012', 'Joukowski Airfoil')
 
 %% Searching an optimal cl Joukowski transformation
 
@@ -65,8 +64,16 @@ yj_interp = profile_interpolator(xj, yj, x);
 
 % add Joukowski plot to the NACA23012 one
 plot(x, yj_interp, 'Marker', 'p')
-legend('NACA 23012', 'Best geometry Joukowski Airfoil', ...
-    'Best cl Joukowski Airfoil')
+
+% dynamic legend
+if ~exist('err_type_geom', 'var')
+    err_type_geom = 'mean-abs';
+end
+lgd_text_geom = sprintf('Joukowski Airfoil - Geometry Opt by %s', ...
+    err_type_geom);
+lgd_text_cl = sprintf('Joukowski Airfoil - Cl Opt by %s', ...
+    err_type_geom);
+legend('NACA 23012', lgd_text_geom, lgd_text_cl)
 
 %% wing cl
 
@@ -74,7 +81,6 @@ figure
 plot(fig8_clW(:, 1), fig8_clW(:, 2), 'Marker', 'p')
 grid on
 xlabel('\alpha (deg)')
-ylabel('cl_W')
 
 cl = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
 
@@ -85,3 +91,13 @@ plot(rad2deg(alpha), cl(alpha, opt_params_geom(2), opt_params_geom(3)), ...
     'Marker', 'x')
 plot(rad2deg(alpha), cl(alpha, opt_params_cl(2), opt_params_cl(3)), ...
     'Marker', 'x')
+
+% dynamic legend
+if ~exist('err_type_cl', 'var')
+    err_type_cl = 'mean-abs';
+end
+lgd_text_geom = sprintf('Joukowski Airfoil - Geometry Opt by %s', ...
+    err_type_cl);
+lgd_text_cl = sprintf('Joukowski Airfoil - Cl Opt by %s', ...
+    err_type_cl);
+legend('NACA 23012 cl_W', lgd_text_geom, lgd_text_cl)

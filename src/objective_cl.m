@@ -1,4 +1,4 @@
-function err = objective_cl(params, alpha, cl)
+function err = objective_cl(params, alpha, cl, err_type)
 % objective_cl - Objective function for the Joukowski profile cl error 
 % minimization problem.
 % 
@@ -8,6 +8,7 @@ function err = objective_cl(params, alpha, cl)
 % - params(3), float: a parameter of the complex circle
 % - alpha, float: alpha values to compute cl (rad)
 % - cl, float: objective airfoil cl values
+% - err_type, string: type of error to be minimized (default 'mean-abs')
 %
 % OUTPUTS:
 % - err, float: error between Joukowski cl curve and objective one
@@ -21,8 +22,21 @@ function err = objective_cl(params, alpha, cl)
     % Joukowski cl computation
     cl_j = 2*pi*(params(2)/params(3) + alpha);
 
+    if nargin < 4
+        err_type = 'mean-abs';
+    end
+
     % error computation
-    % err = sum((cl - cl_j).^2);
-    err = mean(abs(cl - cl_j));
+    switch err_type
+        case 'sum-squared'
+            err = sum((cl - cl_j).^2);
+        case 'mean-squared'
+            err = mean((cl - cl_j).^2);
+        case 'mean-abs'
+            err = mean(abs(cl - cl_j));
+        otherwise
+            error(['Error type should be either sum-squared, ' ...
+                'mean-squared or mean-abs'])
+    end
 
 end

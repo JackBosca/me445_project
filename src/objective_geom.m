@@ -1,4 +1,4 @@
-function err = objective_geom(params, x, y)
+function err = objective_geom(params, x, y, err_type)
 % objective_geom - Objective function for the Joukowski profile geometric 
 % error minimization problem.
 % 
@@ -8,6 +8,7 @@ function err = objective_geom(params, x, y)
 % - params(3), float: a parameter of the complex circle
 % - x, float: final grid for profile interpolator
 % - y, float: objective airfoil coordinates
+% - err_type, string: type of error to be minimized (default 'mean-abs')
 %
 % OUTPUTS:
 % - err, float: error between Joukowski profile and objective one
@@ -24,8 +25,21 @@ function err = objective_geom(params, x, y)
     % interpolation on x grid
     yj_interp = profile_interpolator(xj, yj, x);
 
+    if nargin < 4
+        err_type = 'mean-abs';
+    end
+
     % error computation
-    % err = sum((y - yj_interp).^2);
-    err = mean(abs(y - yj_interp));
+    switch err_type
+        case 'sum-squared'
+            err = sum((y - yj_interp).^2);
+        case 'mean-squared'
+            err = mean((y - yj_interp).^2);
+        case 'mean-abs'
+            err = mean(abs(y - yj_interp));
+        otherwise
+            error(['Error type should be either sum-squared, ' ...
+                'mean-squared or mean-abs'])
+    end
 
 end
