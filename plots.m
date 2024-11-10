@@ -124,12 +124,25 @@ grid on
 xlabel('\alpha (deg)')
 ylabel('c_l (-)')
 
+% geometry opt cl(alpha)
 plot(rad2deg(alphaW), cl_full(alphaW, opt_params_geom), ...
-    'Marker', 'p', 'Color', col_geom)
+    'Marker', 'o', 'MarkerSize', 3, 'Color', col_geom)
+
+% wing cl opt cl(alpha)
 plot(rad2deg(alphaW), cl_full(alphaW, opt_params_clW_full), ...
-    'Marker', 'p', 'Color', colW)
+    'Marker', 'o', 'MarkerSize', 3, 'Color', colW)
+
+% tail cl opt cl(alpha)
 plot(rad2deg(alphaT), cl_full(alphaT, opt_params_clT_full), ...
-    'Marker', 'p', 'Color', colT)
+    'Marker', 'o', 'MarkerSize', 3, 'Color', colT)
+
+% adding errorbars
+errorbar(rad2deg(alphaW), cl_full(alphaW, opt_params_geom), ...
+    uyW, uyW, rad2deg(uxW), rad2deg(uxW), 'Color', col_geom, 'CapSize', 3)
+errorbar(rad2deg(alphaW), cl_full(alphaW, opt_params_clW_full), ...
+    uyW, uyW, rad2deg(uxW), rad2deg(uxW), 'Color', colW, 'CapSize', 3)
+errorbar(rad2deg(alphaT), cl_full(alphaT, opt_params_clT_full), ...
+    uyT, uyT, rad2deg(uxT), rad2deg(uxT), 'Color', colT, 'CapSize', 3)
 
 % dynamic legend
 if ~exist('err_type_cl', 'var')
