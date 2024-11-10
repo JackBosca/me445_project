@@ -1,10 +1,11 @@
-function err = obj_cl(params, alpha, cl, err_type)
-% obj_cl - Objective function for the Joukowski profile cl error 
-% minimization problem.
+function err = obj_cl_full(params, alpha, cl, err_type)
+% obj_cl_full - Objective function for the Joukowski profile cl error 
+% minimization problem, considering all params (eta, xi, a).
 % 
 % INPUTS: 
-% - params(1), float: xi coordinate of the circle origin
-% - params(2), float: a parameter of the complex circle
+% - params(1), float: eta coordinate of the circle origin
+% - params(2), float: xi coordinate of the circle origin
+% - params(3), float: a parameter of the complex circle
 % - alpha, float: alpha values to compute cl (rad)
 % - cl, float: objective airfoil cl values
 % - err_type, string: type of error to be minimized (default 'mean-abs')
@@ -15,11 +16,11 @@ function err = obj_cl(params, alpha, cl, err_type)
 % CALLED FUNCTIONS: -
 %
 % REVISIONS:
-% - #v0 05/11/24, Boscariol Jacopo
+% - #v0 10/11/24, Boscariol Jacopo
 %               Changes: release.
 
     % Joukowski cl computation
-    cl_j = 2*pi*(params(1)/params(2) + alpha);
+    cl_j = 2*pi*(params(2)/(params(3) - params(1)) + alpha);
 
     if nargin < 4
         err_type = 'mean-abs';

@@ -36,7 +36,7 @@ opt_params_geom = fminsearch(@(params) obj_geom(params, x, y, ...
 
 yj_interp_geom = profile_interpolator(xj, yj, x);
 
-%% Optimal cl Joukowski transformation
+%% Optimal partial (xi, a) cl Joukowski transformation
 
 % stall angles
 alphas_pW = 7;                           % (deg)
@@ -56,38 +56,64 @@ idx2 = find(fig8_clT(:, 1) > alphas_pT, 1);
 alphaT = deg2rad(fig8_clT(idx1:idx2, 1));
 clT = fig8_clT(idx1:idx2, 2);
 
-% initial guess for parameters xi_origin, a
+% initial guess
 init_guess_cl = [0.1, 0.1, 1];
 
 % error definition
 err_type_cl = 'sum-squared';
 
 % minimize the objective function
-opt_params_clW = fminsearch(@(params) obj_cl(params, alphaW, clW, ...
+opt_params_clW_partial = fminsearch(@(params) obj_cl_partial(params, alphaW, clW, ...
     err_type_cl), init_guess_cl(2:3));
-opt_params_clT = fminsearch(@(params) obj_cl(params, alphaT, clT, ...
+opt_params_clT_partial = fminsearch(@(params) obj_cl_partial(params, alphaT, clT, ...
     err_type_cl), init_guess_cl(2:3));
 
 % optimal xi, a have been found, now search for best eta to find best 
 % geometrical fit of the NACA profile
-etaW = fminsearch(@(eta) obj_geom_eta(eta, opt_params_clW(1), ...
-    opt_params_clW(2), x, y, err_type_geom), init_guess_cl(1));
-etaT = fminsearch(@(eta) obj_geom_eta(eta, opt_params_clT(1), ...
-    opt_params_clT(2), x, y, err_type_geom), init_guess_cl(1));
+etaW = fminsearch(@(eta) obj_geom_eta(eta, opt_params_clW_partial(1), ...
+    opt_params_clW_partial(2), x, y, err_type_geom), init_guess_cl(1));
+etaT = fminsearch(@(eta) obj_geom_eta(eta, opt_params_clT_partial(1), ...
+    opt_params_clT_partial(2), x, y, err_type_geom), init_guess_cl(1));
 
-opt_params_clW = [etaW, opt_params_clW];
-opt_params_clT = [etaT, opt_params_clT];
+opt_params_clW_partial = [etaW, opt_params_clW_partial];
+opt_params_clT_partial = [etaT, opt_params_clT_partial];
 
 % Joukowski function call with optimal params
-[~, xjW, yjW] = joukowski_transform(opt_params_clW);
-[~, xjT, yjT] = joukowski_transform(opt_params_clT);
+[~, xjW, yjW] = joukowski_transform(opt_params_clW_partial);
+[~, xjT, yjT] = joukowski_transform(opt_params_clT_partial);
 
-yj_interp_clW = profile_interpolator(xjW, yjW, x);
-yj_interp_clT = profile_interpolator(xjT, yjT, x);
+yj_interp_clW_partial = profile_interpolator(xjW, yjW, x);
+yj_interp_clT_partial = profile_interpolator(xjT, yjT, x);
 
 % cl potential flow function (apporx lambda/a --> 0 is valid for the
 % NACA 23012)
-cl = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
+cl_partial = @(alpha, lambda, a) 2*pi*(alpha + lambda/a);
+
+%% Optimal full (eta, xi, a) cl Joukowski transformation
+
+% initial guess
+init_guess_cl = [0.1, 0.1, 1];
+
+% error definition
+err_type_cl = 'sum-squared';
+
+% minimize the objective function
+opt_params_clW_full = fminsearch(@(params) obj_cl_full(params, alphaW, clW, ...
+    err_type_cl), init_guess_cl);
+opt_params_clT_full = fminsearch(@(params) obj_cl_full(params, alphaT, clT, ...
+    err_type_cl), init_guess_cl);
+
+% Joukowski function call with optimal params
+[~, xjW, yjW] = joukowski_transform(opt_params_clW_full);
+[~, xjT, yjT] = joukowski_transform(opt_params_clT_full);
+
+yj_interp_clW_full = profile_interpolator(xjW, yjW, x);
+yj_interp_clT_full = profile_interpolator(xjT, yjT, x);
+
+% cl potential flow function (apporx lambda/a --> 0 is valid for the
+% NACA 23012)
+cl_full = @(alpha, params) 2*pi*sin(alpha + ...
+    params(2)/(params(3) - params(1)));
 
 %% plots call
 run("plots.m")
