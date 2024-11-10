@@ -42,9 +42,9 @@ end
 lgd_text_geom = sprintf('Joukowski Airfoil - Geometry Opt by %s', ...
     err_type_geom);
 lgd_text_clW = sprintf('Joukowski Wing Airfoil - c_l Opt by %s', ...
-    err_type_geom);
+    err_type_cl);
 lgd_text_clT = sprintf('Joukowski Tail Airfoil - c_l Opt by %s', ...
-    err_type_geom);
+    err_type_cl);
 
 legend('NACA 23012', lgd_text_geom, lgd_text_clW, lgd_text_clT)
 
@@ -70,11 +70,11 @@ if ~exist('err_type_cl', 'var')
     err_type_cl = 'mean-abs';
 end
 lgd_text_geom = sprintf('Joukowski Airfoil - Geometry Opt by %s', ...
-    err_type_cl);
+    err_type_geom);
 lgd_text_clW = sprintf('Joukowski Wing Airfoil - c_l Opt by %s', ...
-    err_type_geom);
+    err_type_cl);
 lgd_text_clT = sprintf('Joukowski Tail Airfoil - c_l Opt by %s', ...
-    err_type_geom);
+    err_type_cl);
 
 legend('NACA 23012 c_l_W', 'NACA 23012 c_l_T', lgd_text_geom, ...
     lgd_text_clW, lgd_text_clT)

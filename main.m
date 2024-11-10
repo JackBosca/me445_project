@@ -22,14 +22,14 @@ run("config.m")
 %% Optimal geometrical Joukowski transformation
 
 % initial guess for parameters eta_origin, xi_origin, a
-init_guess = [0, 0.1, 1];
+init_guess_geom = [0.1, 0.1, 1];
 
-% error definition (to be specified in objective_geom)
-% err_type_geom = 'sum_squared';
+% error definition
+err_type_geom = 'mean-squared';
 
 % minimize the objective function
-opt_params_geom = fminsearch(@(params) obj_geom(params, x, y), ...
-    init_guess);
+opt_params_geom = fminsearch(@(params) obj_geom(params, x, y, ... 
+    err_type_geom), init_guess_geom);
 
 % Joukowski function call with optimal params
 [~, xj, yj] = joukowski_transform(opt_params_geom);
@@ -56,14 +56,27 @@ idx2 = find(fig8_clT(:, 1) > alphas_pT, 1);
 alphaT = deg2rad(fig8_clT(idx1:idx2, 1));
 clT = fig8_clT(idx1:idx2, 2);
 
-% error definition (to be specified in objective_geom)
-% err_type_cl = 'sum_squared';
+% initial guess for parameters xi_origin, a
+init_guess_cl = [0.1, 0.1, 1];
+
+% error definition
+err_type_cl = 'sum-squared';
 
 % minimize the objective function
-opt_params_clW = fminsearch(@(params) obj_cl(params, alphaW, clW), ...
-    init_guess);
-opt_params_clT = fminsearch(@(params) obj_cl(params, alphaT, clT), ...
-    init_guess);
+opt_params_clW = fminsearch(@(params) obj_cl(params, alphaW, clW, ...
+    err_type_cl), init_guess_cl(2:3));
+opt_params_clT = fminsearch(@(params) obj_cl(params, alphaT, clT, ...
+    err_type_cl), init_guess_cl(2:3));
+
+% optimal xi, a have been found, now search for best eta to find best 
+% geometrical fit of the NACA profile
+etaW = fminsearch(@(eta) obj_geom_eta(eta, opt_params_clW(1), ...
+    opt_params_clW(2), x, y, err_type_geom), init_guess_cl(1));
+etaT = fminsearch(@(eta) obj_geom_eta(eta, opt_params_clT(1), ...
+    opt_params_clT(2), x, y, err_type_geom), init_guess_cl(1));
+
+opt_params_clW = [etaW, opt_params_clW];
+opt_params_clT = [etaT, opt_params_clT];
 
 % Joukowski function call with optimal params
 [~, xjW, yjW] = joukowski_transform(opt_params_clW);
