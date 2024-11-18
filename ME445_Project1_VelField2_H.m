@@ -22,7 +22,8 @@ c = max(x_profil)-min(x_profil);
 
 % VELOCITY FIELD
 lim = 12;
-[xi, eta] = meshgrid(linspace(-lim, lim, 200), linspace(-lim, lim, 200));
+subdivision = 200;
+[xi, eta] = meshgrid(linspace(-lim, lim, subdivision), linspace(-lim, lim, subdivision));
 zeta = xi + 1i * eta;
 z = zeta + R^2 ./ zeta; 
 dz_dzeta = 1 - (R^2 ./ zeta.^2); 
@@ -32,12 +33,17 @@ W_tilde = V_inf * exp(-1i * alpha) ...
 W = W_tilde ./ dz_dzeta;
 
 % CIRCLE-VELOCITY
-u_cercle = real(W_tilde);
-v_cercle = -imag(W_tilde);
+u_circle = real(W_tilde);
+v_circle = -imag(W_tilde);
+inside_circle = abs(zeta - mu) < R;
+u_circle(inside_circle) = NaN;
+v_circle(inside_circle) = NaN;
 
 % PROFIL-VELOCITY
 u_profil = real(W);
 v_profil = -imag(W);
+u_profil(inside_circle) = NaN;
+v_profil(inside_circle) = NaN;
 
 % ANGLE AND AMPLITUDE @ TAIL LOCATION
 x_target = min(x_profil) + 3 * c;
@@ -53,7 +59,7 @@ amplitude = sqrt(u_at_point^2 + v_at_point^2);
 % FIGURES
 % CIRCLE-PLAN
 figure; hold on; grid on;
-streamslice(xi, eta, u_cercle, v_cercle);
+streamslice(xi, eta, u_circle, v_circle);
 plot(mu_x,mu_y,'r.','MarkerSize',10);
 text(mu_x,mu_y-R-0.75,sprintf('(%.2f,%.2f)',mu_x,mu_y),...
     'Color','Red','FontSize', 8, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom');
