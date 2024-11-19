@@ -1,7 +1,7 @@
-close all; clear all; clc;
+% close all; clear all; clc;
 
 % -------------------- User-defined angle of attack
-alpha_deg = 10;
+alpha_deg = 3.0556;
 alpha_rad = deg2rad(alpha_deg);
 
 % -------------------- Load NACA data
@@ -77,8 +77,8 @@ for n = 1:10
 end
 
 alpha_TAF = linspace(-20,30,30);
-Cl_TAF = (2*pi.*alpha_TAF + pi*(An(1)-2*A0))/100;
-Cl_TAF_inclined = (2*pi.*alpha_TAF + pi*(An_inclined(1)-2*A0_inclined))/100;
+Cl_TAF = (2*pi.*alpha_TAF + pi*(An(1)-2*A0));
+Cl_TAF_inclined = (2*pi.*alpha_TAF + pi*(An_inclined(1)-2*A0_inclined));
 
 Cl_TAF_plot = (Cl_TAF - Cl_TAF_inclined) ./ Cl_TAF_inclined;
 
