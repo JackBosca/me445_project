@@ -46,15 +46,19 @@ u_profil(inside_circle) = NaN;
 v_profil(inside_circle) = NaN;
 
 % ANGLE AND AMPLITUDE @ TAIL LOCATION
-x_target = min(x_profil) + 3 * c;
-y_target = c / 2;
-[~, idx_x] = min(abs(xi(1,:) - x_target)); % Trouver l'indice de x le plus proche
-[~, idx_y] = min(abs(eta(:,1) - y_target)); % Trouver l'indice de y le plus proche
+L = 3*c; H = c/2;
+x_tail = min(x_profil) + L*cos(alpha);
+y_tail = c / 2 + L*sin(alpha);
+[~, idx_x] = min(abs(xi(1,:) - x_tail)); 
+[~, idx_y] = min(abs(eta(:,1) - y_tail)); 
 u_at_point = u_profil(idx_y, idx_x);
 v_at_point = v_profil(idx_y, idx_x);
-theta = atan2(v_at_point, u_at_point); % atan2 gère les signes et donne l'angle en radians
+theta = atan2(v_at_point, u_at_point); 
 theta_deg = rad2deg(theta);
 amplitude = sqrt(u_at_point^2 + v_at_point^2);
+disp("x_tail = " + x_tail); disp("y_tail = " + y_tail);
+disp("θ = " + theta_deg);
+disp("U = " + amplitude)
 
 % FIGURES
 % CIRCLE-PLAN
@@ -74,11 +78,11 @@ ylabel('$\eta$','Interpreter','latex');
 figure; hold on; grid on;
 p1 = streamslice(real(z), imag(z), u_profil, v_profil);
 p2 = plot(x_profil, y_profil, 'k-', 'LineWidth', 2);
-p3 = plot(x_target,y_target,'k.', 'MarkerSize',8);
-text(x_target, y_target+0.25, ...
+p3 = plot(x_tail,y_tail,'k.', 'MarkerSize',8);
+text(x_tail, y_tail+0.25, ...
     sprintf('θ = %.2f°\nU= %.2f', theta_deg, amplitude), ...
     'FontSize', 8, 'HorizontalAlignment', 'center', 'VerticalAlignment', 'bottom'); 
-text(x_target,y_target-0.25,sprintf('(%.2f,%.2f)',x_target,y_target),'FontSize',8,...
+text(x_tail,y_tail-0.25,sprintf('(%.2f,%.2f)',x_tail,y_tail),'FontSize',8,...
     'HorizontalAlignment', 'center', 'VerticalAlignment', 'top');
 axis equal;
 xlim([-5, lim]);
