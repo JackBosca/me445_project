@@ -1,12 +1,13 @@
 clear all; close all; clc;
 
 % CIRCLE
-mu_x = 0.05; 
-mu_y = 0.3;  
+mu_x = -0.15; 
+mu_y = 0.096;  
 mu = mu_x + 1i * mu_y; 
-V_inf = 30; 
+V_inf = 25; 
 alpha = deg2rad(5); 
 R = sqrt((1 - mu_x)^2 + mu_y^2);
+% R = 1.165;
 Gamma = 4 * pi * V_inf * R * sin(alpha + asin(mu_y / R)); % KUTTA CONDITION
 % Gamma = 0;
 theta = linspace(0, 2 * pi, 1000);
@@ -14,7 +15,7 @@ zeta_circle = R * exp(1i * theta) + mu;
 chi_circle = real(zeta_circle);
 eta_circle = imag(zeta_circle);
 
-z_profil =  zeta_circle + R^2 ./ zeta_circle; % JOUKOWSKI
+z_profil =  zeta_circle + 1 ./ zeta_circle; % JOUKOWSKI
 x_profil = real(z_profil);
 y_profil = imag(z_profil);
 
