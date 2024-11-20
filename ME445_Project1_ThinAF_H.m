@@ -66,9 +66,9 @@ x_profil_scaled = x_tail + scale_factor .* x_profil;
 y_profil_scaled = y_tail + scale_factor .* y_profil; 
 x_profil_scaled = x_profil_scaled + (scale_factor * c)/2; 
 
-% ---------- TA Theory ---------- 
 theta_rad = deg2rad(theta_deg);
 
+% ---------- TA Theory ---------- 
 % ---------- NACA data ---------- 
 data = load('data/NACA23012.txt');
 x_data = data(:,1); 
