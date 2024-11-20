@@ -3,11 +3,11 @@ clear all; close all; clc;
 % ---------- USER DEFINED ---------- 
 V_inf = 25; 
 alpha_deg = 5;
-alpha = deg2rad(alpha_deg); 
 mu_x = -0.15; 
 mu_y = 0.096; 
 
 % ---------- CIRCLE ----------  
+alpha = deg2rad(alpha_deg); 
 mu = mu_x + 1i * mu_y; 
 R = sqrt((1 - mu_x)^2 + mu_y^2);
 Gamma = 4 * pi * V_inf * R * sin(alpha + asin(mu_y / R)); % KUTTA CONDITION
