@@ -3,7 +3,7 @@ clear all; close all; clc;
 % ---------- USER DEFINED ---------- 
 V_inf = 25; 
 alpha_deg = 5;
-mu_x = -0.15; % Joukowski circle center (mu_x,mu_y)
+mu_x = -0.25; % Joukowski circle center (mu_x,mu_y)
 mu_y = 0.096; 
 a1 = [1.5,3,6]; % Tail location : L = 3*c = a1*c 
 a2 = [0.5,1,2]; % Tail location : H = 1*c = a2*c 
@@ -242,4 +242,5 @@ plot(-1.029185868000000,0.3186,'ko');
 p3 = plot(linspace(-5,10,30),f_slope_exp,'Color',[1 0 0 0.4]);
 xlabel('$\alpha$','Interpreter','latex');
 ylabel('$(C_L - C_{L,S})/C_{L,S}$','Interpreter','latex');
-legend([p1,p2,p3], 'TA Theory','Experimental','Slope approx.','Interpreter','Latex');
+legend([p1,p2,p3], 'TA Theory','Experimental','Slope approx.','Interpreter','Latex','Location','southeast');
+axis square
