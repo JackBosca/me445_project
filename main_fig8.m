@@ -125,5 +125,5 @@ dydx = 2*pi;                % cl = 2*pi*alpha + ...
 uyW = dydx*uxW;
 uyT = dydx*uxT;
 
-%% plots call
-run("plots.m")
+%% plots_fig8 call
+run("plots_fig8.m")

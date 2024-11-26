@@ -1,4 +1,4 @@
-function [U_LH, V_LH, angles] = vel_interpolator(z_domain, U, V, L, H)
+function [U_LH, V_LH, alpha_eff] = vel_interpolator(z_domain, U, V, L, H)
 % vel_interpolator - interpolates the velocity field (U, V) in the point
 % (L, H) of the considered geometrical domani z_domain (which does not need
 % to be generated through meshgrid).
@@ -11,9 +11,9 @@ function [U_LH, V_LH, angles] = vel_interpolator(z_domain, U, V, L, H)
 % - H, float: y-coordinate of the query point
 %
 % OUTPUTS:
-% - U_LH, float: x-velocities at query point for each angles of attack
-% - V_LH, float: y-velocities at query point for each angles of attack
-% - angles, float: velocity angles at query point for each angles of attack
+% - U_LH, float: x-velocities at query point for each AoA
+% - V_LH, float: y-velocities at query point for each AoA
+% - alpha_eff, float: effective alpha at query point for each AoA
 %
 % CALLED FUNCTIONS: -
 %
@@ -47,6 +47,6 @@ function [U_LH, V_LH, angles] = vel_interpolator(z_domain, U, V, L, H)
     end
 
     % computing angles at (L, H)
-    angles = atan2(V_LH, U_LH);
+    alpha_eff = atan2(V_LH, U_LH);
 
 end

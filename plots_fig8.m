@@ -1,6 +1,6 @@
 %{
-plots.m - Plots script for the Aerodynamics ME-445 project. Selected paper: 
-https://doi.org/10.1007/s00348-017-2429-4.
+plots_fig8.m - Plots script for the Aerodynamics ME-445 project, figure 8. 
+Selected paper: https://doi.org/10.1007/s00348-017-2429-4.
 
 CALLED FUNCTIONS: -
 

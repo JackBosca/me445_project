@@ -1,5 +1,5 @@
 function [A0, A1] = compute_coeffs(yc, c)
-% compute_coeffs.m - function to compute A0, A1 coefficients of the thin 
+% compute_coeffs - function to compute A0, A1 coefficients of the thin 
 % aifoil expansion.
 % 
 % INPUTS: 

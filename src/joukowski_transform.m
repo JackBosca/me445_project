@@ -6,7 +6,7 @@ function [zeta_circle, xj, yj] = joukowski_transform(params, acc)
 % - params(1), float: eta coordinate of the circle origin
 % - params(2), float: xi coordinate of the circle origin
 % - params(3), float: a parameter of the complex circle
-% - acc, int: accuracy for the circle discretization
+% - acc, int: accuracy for the circle discretization, default value 101
 %
 % OUTPUTS:
 % - zeta_circle, complex float: coordinates of the complex circle
