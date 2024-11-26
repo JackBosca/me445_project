@@ -1,6 +1,6 @@
 %{
-main.m - Main script for the Aerodynamics ME-445 project. Selected paper: 
-https://doi.org/10.1007/s00348-017-2429-4.
+main_fig8.m - Main script for the Aerodynamics ME-445 project, figure 8. 
+Selected paper: https://doi.org/10.1007/s00348-017-2429-4.
 
 CALLED FUNCTIONS: src/
 

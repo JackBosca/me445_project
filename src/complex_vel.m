@@ -1,10 +1,10 @@
-function [z_domain, u_c, v_c, u_p, v_p] = complex_vel(U_inf, alpha, params, domain)
+function [z_domain, U_c, V_c, U_p, V_p] = complex_vel(U_inf, alphas, params, domain)
 % complex_vel - function to compute the velocity field around the Joukowski
 % complex circle and the corresponding Joukowski profile.
 % 
 % INPUTS: 
 % - U_inf, float: asymptotic velocity
-% - alpha, float: asymptotic angle of attack
+% - alphas, float: asymptotic angles of attack
 % - params(1), float: eta coordinate of the circle origin
 % - params(2), float: xi coordinate of the circle origin
 % - params(3), float: a parameter of the complex circle
@@ -12,10 +12,10 @@ function [z_domain, u_c, v_c, u_p, v_p] = complex_vel(U_inf, alpha, params, doma
 %
 % OUTPUTS:
 % - z_domain, complex float: domain in the Joukowski profile plane
-% - u_c, float: x velocity in the circle plane
-% - v_c, float: y velocity in the circle plane
-% - u_p, float: x velocity in the profile plane
-% - v_p, float: y velocity in the profile plane
+% - U_c, float: x velocity in the circle plane for each alpha
+% - V_c, float: y velocity in the circle plane for each alpha
+% - U_p, float: x velocity in the profile plane for each alpha
+% - V_p, float: y velocity in the profile plane for each alpha
 %
 % CALLED FUNCTIONS: -
 %
@@ -28,6 +28,10 @@ function [z_domain, u_c, v_c, u_p, v_p] = complex_vel(U_inf, alpha, params, doma
     xi = params(2);
     a = params(3);
 
+    % extracting sizes
+    N = size(domain, 1);
+    M = size(domain, 2);
+
     % retrieving R
     R = sqrt((a - eta)^2 + xi^2);
 
@@ -37,13 +41,13 @@ function [z_domain, u_c, v_c, u_p, v_p] = complex_vel(U_inf, alpha, params, doma
     mask = dist2 < R2;
 
     % retrieving gamma from Kutta condition
-    gamma = -1i*2*pi*(a - eta -1i*xi)*(U_inf*exp(-1i*alpha) - ...
+    gamma = @(alpha) -1i*2*pi*(a - eta -1i*xi)*(U_inf*exp(-1i*alpha) - ...
         U_inf*R^2*exp(1i*alpha)/(a - eta - 1i*xi)^2);
 
     % complex potential derivative
-    dW_dz = @(zeta) U_inf*exp(-1i*alpha) - ...
+    dW_dz = @(zeta, alpha) U_inf*exp(-1i*alpha) - ...
         U_inf*R^2*exp(1i*alpha) ./ (zeta - eta - 1i*xi).^2 - ...
-        1i*gamma ./ (2*pi*(zeta - eta - 1i*xi));
+        1i*gamma(alpha) ./ (2*pi*(zeta - eta - 1i*xi));
 
     % inverse derivative
     dz_dzeta = @(zeta) 1 - a^2 ./ (zeta.^2);
@@ -51,20 +55,35 @@ function [z_domain, u_c, v_c, u_p, v_p] = complex_vel(U_inf, alpha, params, doma
     % transforming in physical domain
     z_domain = domain + a^2 ./ domain;
 
-    % retrieving circle velocities
-    u_c = real(dW_dz(domain));
-    v_c = -imag(dW_dz(domain));
+    % init outputs
+    U_c = zeros(N, M, length(alphas));
+    V_c = zeros(N, M, length(alphas));
+    U_p = zeros(N, M, length(alphas));
+    V_p = zeros(N, M, length(alphas));
 
-    % filtering points of the domain
-    u_c(mask) = NaN;
-    v_c(mask) = NaN;
+    % loop on alphas
+    for ii = 1:length(alphas)
+        % retrieving circle velocities
+        u_c = real(dW_dz(domain, alphas(ii)));
+        v_c = -imag(dW_dz(domain, alphas(ii)));
 
-    % retrieving profile velocities
-    u_p = real(dW_dz(z_domain) ./ dz_dzeta(z_domain));
-    v_p = -imag(dW_dz(z_domain) ./ dz_dzeta(z_domain));
+        % filtering points of the domain
+        u_c(mask) = NaN;
+        v_c(mask) = NaN;
 
-    % filtering points of the domain
-    u_p(mask) = NaN;
-    v_p(mask) = NaN;
+        U_c(:, :, ii) = u_c;
+        V_c(:, :, ii) = v_c;
+
+        % retrieving profile velocities
+        u_p = real(dW_dz(z_domain, alphas(ii)) ./ dz_dzeta(z_domain));
+        v_p = -imag(dW_dz(z_domain, alphas(ii)) ./ dz_dzeta(z_domain));
+
+        % filtering points of the domain
+        u_p(mask) = NaN;
+        v_p(mask) = NaN;
+
+        U_p(:, :, ii) = u_p;
+        V_p(:, :, ii) = v_p;
+    end
 
 end

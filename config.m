@@ -21,8 +21,10 @@ addpath(genpath(src_path))
 load("x.mat")                           % x/c
 load("y.mat")                           % y/c
 
+% load figures data
 load("fig8_clW.mat")
 load("fig8_clT.mat")
+load("fig10_T.mat")
 
 % geometric and aerodynamic data
 c = 0.05;                               % (m)

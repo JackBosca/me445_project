@@ -4,7 +4,7 @@ function [A0, A1] = compute_coeffs(yc, c)
 % 
 % INPUTS: 
 % - yc, float: camber line coordinates
-% c, float: chord
+% - c, float: chord
 %
 % OUTPUTS:
 % - A0, float: first thin airfoil expansion coefficient
