@@ -110,12 +110,17 @@ ylim([-cT, H + 2*cT])
 %% Fig 10 plot
 
 figure
-plot(fig10_T(:, 1), fig10_T(:, 2), 'ko')
-hold on
-grid on
 
 % adding computed ratio with filtered alphaT
 plot(rad2deg(alphaT(abs(ratio) < 1)), ratio, 'k^-')
+hold on
+grid on
+
+% if L, H are default, plot the paper data
+if L == 3*c && H == c
+    plot(fig10_T(:, 1), fig10_T(:, 2), 'ko')
+    legend('Thin Airfoil Theory', 'Paper data')
+end
 
 title('Fig. 10 - Lift Interaction Parameter')
 xlabel('\alpha (deg)')

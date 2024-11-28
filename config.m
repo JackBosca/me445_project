@@ -32,8 +32,8 @@ cW = c;                                 % wing chord
 cT = c/2;                               % tail chord
 L = 3*c;                                % longitudinal W-T distance
 H = c;                                  % vertical W-T distance
-U_inf = [17.5, 35];                     % (m/s), [2-airfoils, wing]
-Re_c = [5.83e4, 1.16e5];                % (-), chord Re for wing [17.5, 35] 
+U_inf = 17.5;                     % (m/s)
+Re_c = 5.83e4;                % (-) chord Re for wing 
 
 % getting kinematic viscosity
-v = U_inf*cW ./ Re_c;                   % (m^2/s)
+v = U_inf*cW / Re_c;                   % (m^2/s)

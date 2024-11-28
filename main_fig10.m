@@ -19,6 +19,11 @@ clc
 %% config call
 run("config.m")
 
+%% User inputs and scalings
+
+L = get_L(cW, L);
+H = get_H(H);
+
 % scaling NACA23012 x, y coordinates for wing
 xW = cW*x;
 yW = cW*y;
@@ -54,7 +59,7 @@ opt_params = opt_params * cW / (4*opt_params(3));
 domain = get_domain(opt_params(3), L, H, cT);
 
 % getting cricle and profile velocity fields
-[z_domain, U_c, V_c, U_p, V_p] = complex_vel(U_inf(1), alphaT, ...
+[z_domain, U_c, V_c, U_p, V_p] = complex_vel(U_inf, alphaT, ...
     opt_params, domain);
 
 % translating domain to have wing LE at (0, 0)
