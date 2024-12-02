@@ -73,7 +73,7 @@ The `\_old` folder contains previous work that led to the establishing of the fi
 
 - The execution of script `main_fig8.m` does not ask any input from the user and computes coefficient $$C_l$$ according to the paper experimental setup, using potential flow theory.
    - <ins>**Input**</ins> :
-      - [-]
+      - None
    - <ins>**Output**</ins> :
       - Airfoil partial optimization
       - Airfoil full optimization
