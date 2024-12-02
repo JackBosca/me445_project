@@ -24,6 +24,32 @@ The entire project has been implemented in the MATLAB environment using its defa
 
 ## Data and file overview
 
-Figure 8 and 10 are reproduced by running main_fig8.m and main_fig10.m, respectively. Each of these files represents the main logic of each theories (i.e. Potential flow and thin airfoil theory) and only calls the required functions to determine the wished quantities. All of the functions are set in the \src folder and are described below : 
-
+Figure 8 and 10 are reproduced by respectively running :
+- `main_fig8.m`
+- `main_fig10.m`
 - 
+These scripts calls the following function that produces the needed graph with the basic Matlab plot function :
+- `plots_fig8.m` 
+- `plots_fig10.m` 
+
+Each of these files are set on the `\main` folder and represents the logic of each theories (i.e. Potential flow and thin airfoil theory) by only calling the required functions to determine the wished quantities. All of the functions are set in the `\src` folder and are described below : 
+
+- `config.m` : Loads external datas of the experimental results and NACA profil $$x,y$$ coordinates 
+- `joukowski_transform.m` : Function performing the Joukowski transformation of a complex circle given its center $$(\chi_c,\eta_c)$$ and radius $$a$$ in the complex $$\zeta$$-plane
+- `obj_geom.m` : Objective function for the Joukowski profile geometric error minimization problem (returns the error between the joukowski profile and the studied NACA profile)
+- `profile_interpolator.m` : Function to interpolate the $$y_1$$ values of a certain airfoil into a grid $$x_2$$
+- `obj_geom_eta.m` : Objective function for the Joukowski profile geometric error minimization problem with xi_origin, a being fixed (returns error between Joukowski profile and objective one)
+- `get_L.m` : Function to ask the user values for the tail LE $$x$$-coordinate if he does not want to use the default ones (taken from the paper)
+- `get_H.m` : Function to ask the user values for the tail LE $$y$$-coordinate if he does not want to use the default ones (taken from the paper)
+- `get_domain` : function to automatically generate a complex domain suitable to perform the needed calculations and plots for the two-airfoils configuration. Upper and lower boundaries for the real and imaginary coordinates of the complex plane are computed by inverse trsnsforming the points at
+   $$x_{\textrm{max}} = L + 3c,
+   x_{\textrm{min}} = -3c,
+   y_{\textrm{max}} = H + 3c,
+   y_{\textrm{min}} = -3c$$
+  in the Joukowski profile plane.
+- `complex_vel.m` : function to compute the velocity field around the Joukowski complex circle and the corresponding Joukowski profile
+- `vel_interpolator.m` : interpolates the velocity field $$(U, V)$$ in the point $$(L, H)$$ of the considered geometrical domani $$z_\textrm{domain}$$ (which does not need to be generated through meshgrid)
+- `compute_coeffs.m` : function to compute $$A_0, A_1$$ coefficients of the thin aifoil expansion
+- `obj_cl_full.m` : Objective function for the Joukowski profile $$C_l$$ error minimization problem, considering all params ($$\eta, \xi, a$$)
+- `obj_cl_partial.m` : Objective function for the Joukowski profile $$C_l$$ error minimization problem, considering $$\xi$$ and $$a$$
+- `cl_interpolator.m` : Function to interpolate the $$C_l$$ values of a certain airfoil into a new grid $$\alpha_2$$
