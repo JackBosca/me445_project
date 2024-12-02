@@ -65,6 +65,7 @@ The `\data` folder is, as its name indicates, the papers experimental result and
    - `fig10_tail_alpha.txt` : $$\alpha$$ of tail from figure 10 (1x51)
 - `fig8.jpg` : Figure 8
 - `fig10.jpg` : Figure 10
+- `arrangement.jpg` : Figure representing the arrangement of both airfoil
 
 The `\_old` folder contains previous work that led to the establishing of the final scripts.
 
