@@ -1,4 +1,4 @@
-# [ME-445] Aerodynamics - Group Project
+# [ME-445] Aerodynamics - Project (Group 24)
 
 ## General Information 
 
