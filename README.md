@@ -24,7 +24,7 @@ The entire project has been implemented in the MATLAB environment using its defa
 
 ## Data and file overview
 
-The `\main` folder contains the scripts that needs to be executed by the user and represents the logic of each theories (i.e. Potential flow and thin airfoil theory). Those scripts reproduces Figure 8 and 10 and are respectively :
+The project is run by the execution of two main script. Those scripts represents the logic of each theories (i.e. Potential flow and thin airfoil theory) and are repertioried in the `\main` folder :
 - `main_fig8.m`
 - `main_fig10.m`
 
@@ -53,3 +53,22 @@ Both `main_fig8.m` and `main_fig10.m` calls functions sets in `\src` folder :
 - `obj_cl_full.m` : Objective function for the Joukowski profile $$C_l$$ error minimization problem, considering all params ($$\eta, \xi, a$$)
 - `obj_cl_partial.m` : Objective function for the Joukowski profile $$C_l$$ error minimization problem, considering $$\xi$$ and $$a$$
 - `cl_interpolator.m` : Function to interpolate the $$C_l$$ values of a certain airfoil into a new grid $$\alpha_2$$
+
+The `\data` folder is, as its name indicates, the papers experimental result and airfoil $$x,y$$ coordinates : 
+- `NACA23012.txt` : $$x,y$$ coordinates of the studied airfoil (2x61)
+   - `x.mat` : $$x$$ coordinate (1x61)
+   - `y.mat` : $$y$$ coordinate (1x61)
+- `fig8_clT.mat` : $$C_l(\alpha)$$ of tail extracted from figure 8 (2x80)
+- `fig8_clW.mat` : $$C_l(\alpha)$$ of wing extracted from figure 8 (2x80)
+- `fig10_T.mat` : $$(C_l - C_{l,s})/C_{l,s}$$ as a funnction of $$\alpha$$ (2x51)
+   - `fig10_tail_CL.txt` : $$(C_l - C_{l,s})/C_{l,s}$$ of tail from figure 10 (1x51)
+   - `fig10_tail_alpha.txt` : $$\alpha$$ of tail from figure 10 (1x51)
+- `fig8.jpg` : Figure 8
+- `fig10.jpg` : Figure 10
+
+The `\_old` folder previous work that led to the establishing of the final `\main` folder.
+
+## Methodological information
+
+The execution of script `main_fig10.m` ask the user to enter the values of $$L$$ and $$H$$. Those variables defines the position of the tail as described in the paper : 
+
