@@ -54,7 +54,7 @@ Both `main_fig8.m` and `main_fig10.m` calls functions sets in `\src` folder :
 - `obj_cl_partial.m` : Objective function for the Joukowski profile $$C_l$$ error minimization problem, considering $$\xi$$ and $$a$$
 - `cl_interpolator.m` : Function to interpolate the $$C_l$$ values of a certain airfoil into a new grid $$\alpha_2$$
 
-The `\data` folder is, as its name indicates, the papers experimental result and airfoil $$x,y$$ coordinates : 
+The `\data` folder contains the papers experimental result and airfoil $$x,y$$ coordinates : 
 - `NACA23012.txt` : $$x,y$$ coordinates of the studied airfoil (2x61)
    - `x.mat` : $$x$$ coordinate (1x61)
    - `y.mat` : $$y$$ coordinate (1x61)
