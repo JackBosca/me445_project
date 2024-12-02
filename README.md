@@ -70,5 +70,18 @@ The `\_old` folder contains previous work that led to the establishing of the fi
 
 ## Methodological information
 
-The execution of script `main_fig10.m` ask the user to enter the values of $$L$$ and $$H$$. Those variables defines the position of the tail as described in the paper : 
+- The execution of script `main_fig8.m` does not ask any input from the user and computes coefficient $$C_l$$ according to the paper experimental setup, using potential flow theory.
+   - <ins>**Output**</ins> :
+      - Airfoil partial optimization
+      - Airfoil full optimization
+      - Figure comparing $$C_l(\alpha)$$ : Experimental, partial optimization
+      - Figure comparing $$C_l(\alpha)$$ : Experimental, full optimization
+- The execution of script `main_fig10.m` asks the user the values of $$L$$ and $$H$$. Those variables defines the position of the tail as described in the paper (see figure below). The script, then, computes $$(C_l - C_{l,s})/C_{l,s}$$ for the specified position using thin airfoil theory.
+   - <ins>**Output**</ins> :
+      - Velocity streamlines and magnitude contour around circle in $$\zeta$$-plane
+      - Velocity streamlines and direction contour around circle in $$\zeta$$-plane 
+      - Velocity magnitude contour around Joukowski profile
+      - Velocity direction contour around Joukowski profile
+      - Figure comparing $$(C_l - C_{l,s})/C_{l,s}$$ as a function of $$\alpha$$ : Experimental, TA Theory (for the specified location of the airfoil)
 
+<img src="/../main/data/arrangement.jpg" width="300">
