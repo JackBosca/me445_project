@@ -66,7 +66,7 @@ The `\data` folder is, as its name indicates, the papers experimental result and
 - `fig8.jpg` : Figure 8
 - `fig10.jpg` : Figure 10
 
-The `\_old` folder previous work that led to the establishing of the final `\main` folder.
+The `\_old` folder contains previous work that led to the establishing of the final scripts.
 
 ## Methodological information
 
