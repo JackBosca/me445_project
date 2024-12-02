@@ -24,7 +24,7 @@ The entire project has been implemented in the MATLAB environment using its defa
 
 ## Data and file overview
 
-The project is run by the execution of two main script. Those scripts represents the logic of each theories (i.e. Potential flow and thin airfoil theory) and are repertioried in the `\main` folder :
+The project is run by the execution of two main script. Those scripts reproduces figure 8 and 10 by applying each corresponding theories (i.e. Potential flow and thin airfoil theory respectively) and are repertioried in the `\main` folder :
 - `main_fig8.m`
 - `main_fig10.m`
 
