@@ -24,15 +24,15 @@ The entire project has been implemented in the MATLAB environment using its defa
 
 ## Data and file overview
 
-Figure 8 and 10 are reproduced by respectively running :
+The `\main` folder contains the scripts that needs to be executed by the user and represents the logic of each theories (i.e. Potential flow and thin airfoil theory). Those scripts reproduces Figure 8 and 10 and are respectively :
 - `main_fig8.m`
 - `main_fig10.m`
-- 
-These scripts calls the following function that produces the needed graph with the basic Matlab plot function :
+
+These files calls the following functions that produces the graphs using basic Matlab plot function :
 - `plots_fig8.m` 
 - `plots_fig10.m` 
 
-Each of these files are set on the `\main` folder and represents the logic of each theories (i.e. Potential flow and thin airfoil theory) by only calling the required functions to determine the wished quantities. All of the functions are set in the `\src` folder and are described below : 
+Both `main_fig8.m` and `main_fig10.m` calls functions sets in `\src` folder : 
 
 - `config.m` : Loads external datas of the experimental results and NACA profil $$x,y$$ coordinates 
 - `joukowski_transform.m` : Function performing the Joukowski transformation of a complex circle given its center $$(\chi_c,\eta_c)$$ and radius $$a$$ in the complex $$\zeta$$-plane
