@@ -88,6 +88,6 @@ The `\_old` folder contains previous work that led to the establishing of the fi
       - Velocity streamlines and direction contour around circle in $$\zeta$$-plane 
       - Velocity magnitude contour around Joukowski profile
       - Velocity direction contour around Joukowski profile
-      - Figure comparing $$(C_l - C_{l,s})/C_{l,s}$$ as a function of $$\alpha$$ : Experimental, TA Theory (for the specified location of the airfoil)
+      - Figure comparing $$(C_l - C_{l,s})/C_{l,s}$$ as a function of $$\alpha$$ : Experimental, TA Theory (for the specified location of the tail)
 
 <img src="/../main/data/arrangement.jpg" width="300">
