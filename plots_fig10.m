@@ -24,18 +24,22 @@ figure
 plot(real(zeta_circle), imag(zeta_circle), 'Color', 'k')
 axis equal
 hold on
+plot(opt_params(1), opt_params(2), 'kx')
 
 % adding vel magnitude contours
 contourf(real(domain), imag(domain), vel_mag_c(:, :, idx), 30, ...
     'LineColor', 'none')
-colorbar
+colormap('jet')
+cb = colorbar;
+cb.Label.String = 'Velocity Magnitude (m/s)';
 
 % adding streamlines
 h_stream = streamslice(real(domain), imag(domain), ...
     U_c(:, :, idx), V_c(:, :, idx), 3);
 set(h_stream, 'Color', 'k')
 
-title('Velocity Magnitude Around Joukowski Circle')
+title(sprintf('Velocity Magnitude Around Joukowski Circle, \\alpha = %.2f°',...
+    rad2deg(alphaT(idx))));
 xlabel('Re(z)')
 ylabel('Im(z)')
 
@@ -44,18 +48,22 @@ figure
 plot(real(zeta_circle), imag(zeta_circle), 'Color', 'k')
 axis equal
 hold on
+plot(opt_params(1), opt_params(2), 'kx')
 
 % adding vel direction contours
 contourf(real(domain), imag(domain), angles_c(:, :, idx), 30, ...
     'LineColor', 'none')
-colorbar
+colormap('jet')
+cb = colorbar;
+cb.Label.String = 'Velocity Direction (deg)';
 
 % adding streamlines
 h_stream = streamslice(real(domain), imag(domain), ...
     U_c(:, :, idx), V_c(:, :, idx), 3);
 set(h_stream, 'Color', 'k')
 
-title('Velocity Direction Around Joukowski Circle')
+title(sprintf('Velocity Direction Around Joukowski Circle, \\alpha = %.2f°',...
+    rad2deg(alphaT(idx))));
 xlabel('Re(z)')
 ylabel('Im(z)')
 
@@ -65,7 +73,9 @@ ylabel('Im(z)')
 figure
 contourf(real(z_domain), imag(z_domain), vel_mag_p(:, :, idx), 30, ...
     'LineColor', 'none')
-colorbar
+colormap('jet')
+cb = colorbar;
+cb.Label.String = 'Velocity Magnitude (m/s)';
 hold on
 
 % adding actual wing profile
@@ -76,7 +86,15 @@ plot(xW, yW, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
 plot(xT, yT, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
     'MarkerFaceColor', 'black', 'Color', 'black')
 
-title('Velocity Magnitude Around Joukowski Profile')
+% adding text annotation at tail location
+vel_mag = norm([U_LH(idx), V_LH(idx)]);
+text_string = sprintf('Velocity magnitude = %.2f m/s,\n Velocity direction = %.2f°', ...
+    vel_mag, rad2deg(alpha_effT(idx)));
+text(L, H, text_string, 'VerticalAlignment', 'bottom', ...
+    'HorizontalAlignment', 'right');
+
+title(sprintf('Velocity Magnitude Around Joukowski Profile, \\alpha = %.2f°',...
+    rad2deg(alphaT(idx))));
 xlabel('x (m)')
 ylabel('y (m)')
 
@@ -88,7 +106,9 @@ ylim([-cT, H + 2*cT])
 figure
 contourf(real(z_domain), imag(z_domain), angles_p(:, :, idx), 30, ...
     'LineColor', 'none')
-colorbar
+colormap('jet')
+cb = colorbar;
+cb.Label.String = 'Velocity Direction (deg)';
 hold on
 
 % adding actual wing profile
@@ -99,7 +119,15 @@ plot(xW, yW, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
 plot(xT, yT, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
     'MarkerFaceColor', 'black', 'Color', 'black')
 
-title('Velocity Direction Around Joukowski Profile')
+% adding text annotation at tail location
+vel_mag = norm([U_LH(idx), V_LH(idx)]);
+text_string = sprintf('Velocity magnitude = %.2f m/s,\n Velocity direction = %.2f°', ...
+    vel_mag, rad2deg(alpha_effT(idx)));
+text(L, H, text_string, 'VerticalAlignment', 'bottom', ...
+    'HorizontalAlignment', 'right');
+
+title(sprintf('Velocity Direction Around Joukowski Profile, \\alpha = %.2f°',...
+    rad2deg(alphaT(idx))));
 xlabel('x (m)')
 ylabel('y (m)')
 
@@ -109,8 +137,11 @@ ylim([-cT, H + 2*cT])
 
 %% Fig 10 plot
 
-figure
+% filtering ratio, alpha_effT not meaningful values (threshold = 1)
+ratio = ratio(abs(ratio) < 1);
+alpha_effT = alpha_effT(abs(ratio) < 1);
 
+figure
 % adding computed ratio with filtered alphaT
 plot(rad2deg(alphaT(abs(ratio) < 1)), ratio, 'k^-')
 hold on

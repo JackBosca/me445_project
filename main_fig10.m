@@ -85,7 +85,7 @@ angles_c = rad2deg(atan2(V_c, U_c));
 angles_p = rad2deg(atan2(V_p, U_p));
 
 % retrieving velocity angles at LE of the tail
-[~, ~, alpha_effT] = vel_interpolator(z_domain, U_p, V_p, L, H);
+[U_LH, V_LH, alpha_effT] = vel_interpolator(z_domain, U_p, V_p, L, H);
 
 %% Thin airfoil theory Cl computations
 
@@ -101,10 +101,6 @@ clT = 2*pi*(alpha_effT - A0) + pi*A1;
 
 % computing fig 10 ratio
 ratio = (clT - clT_S) ./ clT_S;
-
-% filtering ratio, alpha_effT not meaningful values (threshold = 1)
-ratio = ratio(abs(ratio) < 1);
-alpha_effT = alpha_effT(abs(ratio) < 1);
 
 %% plots_fig10 call
 
