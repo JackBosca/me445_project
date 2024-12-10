@@ -27,22 +27,43 @@ function [U_LH, V_LH, alpha_eff] = vel_interpolator(z_domain, U, V, L, H)
     % flattening z_domain
     x = real(z_domain(:));
     y = imag(z_domain(:));
-    
+
+    % computing step sizes along rows (x) and columns (y)
+    dx = diff(real(z_domain), 1, 2);
+    dy = diff(imag(z_domain), 1, 1);
+
+    % finding mean step sizes in both directions
+    mean_dx = mean(abs(dx(:)));
+    mean_dy = mean(abs(dy(:)));
+
+    % defining the search radius as twice the largest mean step size
+    search_radius = 2*max(mean_dx, mean_dy);
+
+    % finding indices of points near (L, H)
+    distances = sqrt((x - L).^2 + (y - H).^2);
+    nearby_idx = distances <= search_radius;
+
+    % defining close points to optimize interpolation time
+    x_near = x(nearby_idx);
+    y_near = y(nearby_idx);
+
     % output init
     U_LH = zeros(n_alpha, 1);
     V_LH = zeros(n_alpha, 1);
 
     % main loop
     for ii = 1:n_alpha
-        % selecting current u, v
+        % selecting current u, v near (L, H)
         u = U(:, :, ii);
         v = V(:, :, ii);
+        u = u(nearby_idx);
+        v = v(nearby_idx);
 
         % interpolating using scatteredInterpolant()
-        F_U = scatteredInterpolant(x, y, u(:), 'linear');
+        F_U = scatteredInterpolant(x_near, y_near, u, 'linear');
         U_LH(ii) = F_U(L, H);
 
-        F_V = scatteredInterpolant(x, y, v(:), 'linear');
+        F_V = scatteredInterpolant(x_near, y_near, v, 'linear');
         V_LH(ii) = F_V(L, H);
     end
 
