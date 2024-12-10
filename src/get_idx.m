@@ -35,7 +35,7 @@ function idx = get_idx(alpha_vec)
     disp(['You entered a valid value for alpha: ', num2str(alpha), '°']);
 
     % converting alpha to corresponding index
-    differences = abs(alpha_vec - alpha);
+    differences = abs(rad2deg(alpha_vec) - alpha);
     [~, idx] = min(differences);
 
 end
