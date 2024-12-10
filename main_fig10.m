@@ -32,6 +32,17 @@ yW = cW*y;
 xT = cT*x + L;
 yT = cT*y + H;
 
+% pre-processing wing coordinates for correct ycT computation
+yT_ss = flip(yT(1:31));
+xT_ss = flip(xT(1:31));
+
+% interpolating pressure side coordinates on suction side ones
+yT_ps = yT(31:end);
+xT_ps = xT(31:end);
+
+yT_ps = interp1(xT_ps, yT_ps, xT_ss, 'linear');
+yT_ps(end) = yT(end);
+
 % getting considered angles of attack
 alphaT = deg2rad(fig10_T(:, 1));
 
@@ -79,10 +90,10 @@ angles_p = rad2deg(atan2(V_p, U_p));
 %% Thin airfoil theory Cl computations
 
 % computing camber line of the wing
-ycW = yW/2;
+ycT = (yT_ss + yT_ps)/2;
 
 % compute_coeffs() call
-[A0, A1] = compute_coeffs(ycW, cW);
+[A0, A1] = compute_coeffs(ycT, cT);
 
 % computing tail Cl at both single and 2-airfoils configurations
 clT_S = 2*pi*(alphaT - A0) + pi*A1;
