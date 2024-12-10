@@ -109,6 +109,6 @@ alpha_effT = alpha_effT(abs(ratio) < 1);
 %% plots_fig10 call
 
 % select alpha to use for velocity fields visualizations
-idx = 1;
+idx = get_idx(alphaT);
 
 run("plots_fig10.m")
