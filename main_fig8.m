@@ -116,14 +116,7 @@ cl_full = @(alpha, params) 2*pi*sin(alpha + ...
     params(2)/(params(3) - params(1)));
 
 %% computing uncertainties on cl
-uxW = deg2rad(0.2)/sqrt(3);          % page 3 of the paper, uniform dist assumed
-uxT = deg2rad(0.4)/sqrt(3);          % page 3 considering also iT uncertainty, uniform dist assumed
-
-% RSS derivatives
-dydx = 2*pi;                % cl = 2*pi*alpha + ...
-
-uyW = dydx*uxW;
-uyT = dydx*uxT;
+[uxW, uxT, uyW, uyT] = RSS();
 
 %% plots_fig8 call
 run("plots_fig8.m")
