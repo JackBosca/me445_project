@@ -79,11 +79,11 @@ cb.Label.String = 'Velocity Magnitude (m/s)';
 hold on
 
 % adding actual wing profile
-plot(xW, yW, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
+plot(xW, yW, '-', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
     'MarkerFaceColor', 'black', 'Color', 'black')
 
 % adding actual tail profile
-plot(xT, yT, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
+plot(xT, yT, '-', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
     'MarkerFaceColor', 'black', 'Color', 'black')
 
 % adding text annotation at tail location
@@ -112,11 +112,11 @@ cb.Label.String = 'Velocity Direction (deg)';
 hold on
 
 % adding actual wing profile
-plot(xW, yW, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
+plot(xW, yW, '-', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
     'MarkerFaceColor', 'black', 'Color', 'black')
 
 % adding actual tail profile
-plot(xT, yT, '-o', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
+plot(xT, yT, '-', 'LineWidth', 1.5, 'MarkerSize', 1.5, ...
     'MarkerFaceColor', 'black', 'Color', 'black')
 
 % adding text annotation at tail location
