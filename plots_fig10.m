@@ -38,8 +38,8 @@ h_stream = streamslice(real(domain), imag(domain), ...
     U_c(:, :, idx), V_c(:, :, idx), 3);
 set(h_stream, 'Color', 'k')
 
-title(sprintf('Velocity Magnitude Around Joukowski Circle, \\alpha = %.2f°',...
-    rad2deg(alphaT(idx))));
+title(sprintf(['Velocity Magnitude Around Joukowski Circle - \\alpha = %.2f°, ' ...
+    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
 xlabel('Re(z)')
 ylabel('Im(z)')
 
@@ -62,8 +62,8 @@ h_stream = streamslice(real(domain), imag(domain), ...
     U_c(:, :, idx), V_c(:, :, idx), 3);
 set(h_stream, 'Color', 'k')
 
-title(sprintf('Velocity Direction Around Joukowski Circle, \\alpha = %.2f°',...
-    rad2deg(alphaT(idx))));
+title(sprintf(['Velocity Direction Around Joukowski Circle - \\alpha = %.2f°, ' ...
+    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
 xlabel('Re(z)')
 ylabel('Im(z)')
 
@@ -93,8 +93,8 @@ text_string = sprintf('Velocity magnitude = %.2f m/s,\n Velocity direction = %.2
 text(L, H, text_string, 'VerticalAlignment', 'bottom', ...
     'HorizontalAlignment', 'right');
 
-title(sprintf('Velocity Magnitude Around Joukowski Profile, \\alpha = %.2f°',...
-    rad2deg(alphaT(idx))));
+title(sprintf(['Velocity Magnitude Around Joukowski Profile - \\alpha = %.2f°, ' ...
+    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
 xlabel('x (m)')
 ylabel('y (m)')
 
@@ -126,8 +126,8 @@ text_string = sprintf('Velocity magnitude = %.2f m/s,\n Velocity direction = %.2
 text(L, H, text_string, 'VerticalAlignment', 'bottom', ...
     'HorizontalAlignment', 'right');
 
-title(sprintf('Velocity Direction Around Joukowski Profile, \\alpha = %.2f°',...
-    rad2deg(alphaT(idx))));
+title(sprintf(['Velocity Direction Around Joukowski Profile - \\alpha = %.2f°, ' ...
+    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
 xlabel('x (m)')
 ylabel('y (m)')
 
