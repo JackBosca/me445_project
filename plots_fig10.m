@@ -38,8 +38,8 @@ h_stream = streamslice(real(domain), imag(domain), ...
     U_c(:, :, idx), V_c(:, :, idx), 3);
 set(h_stream, 'Color', 'k')
 
-title(sprintf(['Velocity Magnitude Around Joukowski Circle - \\alpha = %.2f°, ' ...
-    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
+title(sprintf(['Velocity Magnitude, Joukowski Circle - $\\alpha = %.2f^\\circ$, ' ...
+    '$U_{\\infty} = %.2f$ m/s'], rad2deg(alphaT(idx)), U_inf), 'Interpreter', 'latex');
 xlabel('Re(z)')
 ylabel('Im(z)')
 
@@ -62,8 +62,8 @@ h_stream = streamslice(real(domain), imag(domain), ...
     U_c(:, :, idx), V_c(:, :, idx), 3);
 set(h_stream, 'Color', 'k')
 
-title(sprintf(['Velocity Direction Around Joukowski Circle - \\alpha = %.2f°, ' ...
-    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
+title(sprintf(['Velocity Direction, Joukowski Circle - $\\alpha = %.2f^\\circ$, ' ...
+    '$U_{\\infty} = %.2f$ m/s'], rad2deg(alphaT(idx)), U_inf), 'Interpreter', 'latex');
 xlabel('Re(z)')
 ylabel('Im(z)')
 
@@ -93,8 +93,8 @@ text_string = sprintf('Velocity magnitude = %.2f m/s,\n Velocity direction = %.2
 text(L, H, text_string, 'VerticalAlignment', 'bottom', ...
     'HorizontalAlignment', 'right');
 
-title(sprintf(['Velocity Magnitude Around Joukowski Profile - \\alpha = %.2f°, ' ...
-    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
+title(sprintf(['Velocity Magnitude, Joukowski Profile - $\\alpha = %.2f^\\circ$, ' ...
+    '$U_{\\infty} = %.2f$ m/s'], rad2deg(alphaT(idx)), U_inf), 'Interpreter', 'latex');
 xlabel('x (m)')
 ylabel('y (m)')
 
@@ -126,8 +126,8 @@ text_string = sprintf('Velocity magnitude = %.2f m/s,\n Velocity direction = %.2
 text(L, H, text_string, 'VerticalAlignment', 'bottom', ...
     'HorizontalAlignment', 'right');
 
-title(sprintf(['Velocity Direction Around Joukowski Profile - \\alpha = %.2f°, ' ...
-    'U_\\infty = %.2f'], rad2deg(alphaT(idx)), U_inf));
+title(sprintf(['Velocity Direction, Joukowski Profile - $\\alpha = %.2f^\\circ$, ' ...
+    '$U_{\\infty} = %.2f$ m/s'], rad2deg(alphaT(idx)), U_inf), 'Interpreter', 'latex');
 xlabel('x (m)')
 ylabel('y (m)')
 
@@ -154,7 +154,7 @@ if L == 3*c && H == c
 end
 
 title('Fig. 10 - Lift Interaction Parameter')
-xlabel('\alpha (deg)')
+xlabel('$\alpha$ (deg)', 'Interpreter', 'latex')
 ylabel('$\frac{c_L - c_{L,S}}{c_{L,S}}$ (-)', 'Interpreter', 'latex')
 
 %% Fig 9 plot
