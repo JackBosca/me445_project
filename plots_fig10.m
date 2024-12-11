@@ -156,3 +156,29 @@ end
 title('Fig. 10 - Lift Interaction Parameter')
 xlabel('\alpha (deg)')
 ylabel('$\frac{c_L - c_{L,S}}{c_{L,S}}$ (-)', 'Interpreter', 'latex')
+
+%% Fig 9 plot
+
+% search linear interval in clT(alpha) curve
+idx1 = find(fig10_T(:, 1) > alphas_nT, 1);
+idx2 = find(fig10_T(:, 1) > alphas_pT, 1);
+alphaT_fig9 = alphaT(idx1:idx2);
+clT_fig9 = clT(idx1:idx2);
+
+figure
+plot(fig9_clT(:, 1), fig9_clT(:, 2), 'Marker', 'square', 'Color', 'black')
+hold on
+grid on
+xlabel('\alpha (deg)')
+ylabel('c_l (-)')
+
+% thin airfoil theory
+plot(rad2deg(alphaT_fig9), clT_fig9, 'Marker', 'o', 'MarkerSize', 3, ...
+    'Color', 'red')
+
+% adding errorbars
+errorbar(rad2deg(alphaT_fig9), clT_fig9, ...
+    uyT, uyT, rad2deg(uxT), rad2deg(uxT), 'CapSize', 3, 'Color', 'red')
+
+legend('Paper data', 'Thin Airfoil Theory')
+title('Fig. 9 - Lift Coefficient in 2-Airfoils Configuration')

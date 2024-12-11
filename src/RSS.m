@@ -1,5 +1,5 @@
 function [uxW, uxT, uyW, uyT] = RSS(alphaW, alphaT)
-% RSS - COmputes confidence intervals on wing and tail Cl by propagating 
+% RSS - Computes confidence intervals on wing and tail Cl by propagating 
 % uncertainties on measures of alpha and iT angles (see paper page 3).
 % Uniform distributions are assumed for measures errors.
 % 

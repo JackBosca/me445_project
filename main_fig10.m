@@ -102,6 +102,9 @@ clT = 2*pi*(alpha_effT - A0) + pi*A1;
 % computing fig 10 ratio
 ratio = (clT - clT_S) ./ clT_S;
 
+%% computing uncertainties on cl
+[uxW, uxT, uyW, uyT] = RSS();
+
 %% plots_fig10 call
 
 % select alpha to use for velocity fields visualizations

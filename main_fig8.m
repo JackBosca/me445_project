@@ -38,12 +38,6 @@ yj_interp_geom = profile_interpolator(xj, yj, x);
 
 %% Optimal partial (xi, a) cl Joukowski transformation
 
-% stall angles
-alphas_pW = 7;                           % (deg)
-alphas_nW = -8;                          % (deg)
-alphas_pT = 5;                           % (deg)
-alphas_nT = -8;                          % (deg)
-
 % search linear interval in clW(alpha) curve
 idx1 = find(fig8_clW(:, 1) > alphas_nW, 1);
 idx2 = find(fig8_clW(:, 1) > alphas_pW, 1);

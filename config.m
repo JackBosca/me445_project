@@ -24,6 +24,7 @@ load("y.mat")                           % y/c
 % load figures data
 load("fig8_clW.mat")
 load("fig8_clT.mat")
+load("fig9_clT.mat")
 load("fig10_T.mat")
 
 % geometric and aerodynamic data
@@ -37,3 +38,9 @@ Re_c = 5.83e4;                % (-) chord Re for wing
 
 % getting kinematic viscosity
 v = U_inf*cW / Re_c;                   % (m^2/s)
+
+% stall angles
+alphas_pW = 7;                           % (deg)
+alphas_nW = -8;                          % (deg)
+alphas_pT = 5;                           % (deg)
+alphas_nT = -8;                          % (deg)
