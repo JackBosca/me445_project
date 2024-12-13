@@ -100,7 +100,11 @@ ylabel('y (m)')
 
 % applying suitable limits wrt the considered domain
 xlim([-cT, L + 2*cT])
-ylim([-cT, H + 2*cT])
+if H >= 0
+    ylim([-cT, H + cT])
+else
+    ylim([H - cT, cT])
+end
 
 % velocity direction
 figure
@@ -133,7 +137,11 @@ ylabel('y (m)')
 
 % applying suitable limits wrt the considered domain
 xlim([-cT, L + 2*cT])
-ylim([-cT, H + 2*cT])
+if H >= 0
+    ylim([-cT, H + cT])
+else
+    ylim([H - cT, cT])
+end
 
 %% Fig 10 plot
 
