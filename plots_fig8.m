@@ -52,9 +52,9 @@ title('Partial c_l Optimization')
 %% cl (partial optimization) curves
 
 figure
-plot(fig8_clW(:, 1), fig8_clW(:, 2), 'Marker', '^', 'Color', 'black')
+plot(fig8_clW(:, 1), fig8_clW(:, 2), 'k^')
 hold on
-plot(fig8_clT(:, 1), fig8_clT(:, 2), 'Marker', 'square', 'Color', 'black')
+plot(fig8_clT(:, 1), fig8_clT(:, 2), 'ksquare')
 grid on
 xlabel('\alpha (deg)')
 ylabel('c_l (-)')
@@ -117,9 +117,9 @@ title('Full c_l Optimization')
 %% cl (full optimization) curves
 
 figure
-plot(fig8_clW(:, 1), fig8_clW(:, 2), 'Marker', '^', 'Color', 'black')
+plot(fig8_clW(:, 1), fig8_clW(:, 2), 'k^')
 hold on
-plot(fig8_clT(:, 1), fig8_clT(:, 2), 'Marker', 'square', 'Color', 'black')
+plot(fig8_clT(:, 1), fig8_clT(:, 2), 'ksquare')
 grid on
 xlabel('\alpha (deg)')
 ylabel('c_l (-)')
@@ -158,4 +158,3 @@ lgd_text_clT = sprintf('Joukowski Tail Airfoil - c_l Opt by %s', ...
 legend('NACA 23012 c_l_W', 'NACA 23012 c_l_T', lgd_text_geom, ...
     lgd_text_clW, lgd_text_clT)
 title('Fig. 8, Full c_l Optimization')
-

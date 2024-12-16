@@ -13,7 +13,7 @@ Changes: -
 %}
 
 clear
-close all
+%close all
 clc
 
 %% config call

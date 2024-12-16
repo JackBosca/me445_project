@@ -175,20 +175,29 @@ if L == 3*c && H == c
     clT_fig9 = clT(idx1:idx2);
 
     figure
-    plot(fig9_clT(:, 1), fig9_clT(:, 2), 'Marker', 'square', 'Color', 'black')
+    plot(fig9_clT(:, 1), fig9_clT(:, 2), 'ksquare')
     hold on
+    plot(fig8_clT(:, 1), fig8_clT(:, 2), 'k^')
     grid on
     xlabel('\alpha (deg)')
     ylabel('c_l (-)')
 
     % thin airfoil theory
     plot(rad2deg(alphaT_fig9), clT_fig9, 'Marker', 'o', 'MarkerSize', 3, ...
-        'Color', 'red')
+        'Color', 'green')
 
     % adding errorbars
     errorbar(rad2deg(alphaT_fig9), clT_fig9, ...
-        uyT, uyT, rad2deg(uxT), rad2deg(uxT), 'CapSize', 3, 'Color', 'red')
+        uyT, uyT, rad2deg(uxT), rad2deg(uxT), 'CapSize', 3, 'Color', 'green')
 
-    legend('Paper data', 'Thin Airfoil Theory')
-    title('Fig. 9 - Lift Coefficient in 2-Airfoils Configuration')
+    legend('Paper data - 2-aifoil configuration', ...
+        'Paper data - 1-airfoil configuration', 'Thin Airfoil Theory')
+    title('Fig. 8 & 9 - Lift Coefficient in Single and 2-Airfoils Configurations')
 end
+
+% This plot clearly shows that the Cl computed with thin airfoil theory is
+% always lower than the one in the single airfoil configuration. This is
+% because, as expected, the presence of the wing in front of the tail makes
+% the effective angle of attack of the tail lower than the undisturbed one.
+% Since the Cl is linear with alpha, this results in lower lift coefficient
+% values.
